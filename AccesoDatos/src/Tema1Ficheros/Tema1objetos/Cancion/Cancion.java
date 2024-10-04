@@ -1,4 +1,4 @@
-package Tema1Ficheros.Tema1objetos;
+package Tema1Ficheros.Tema1objetos.Cancion;
 
 import java.io.Serializable;
 
