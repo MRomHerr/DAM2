@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class BuscarEmpleado {
     public static void main(String[] args) throws IOException {
-        File fichero = new File(".\\src\\Tema1Empleado\\AleatorioEmple.dat"); // Declara el fichero de acceso aleatorio.
+        File fichero = new File("C:\\Users\\aludam2\\IdeaProjects\\DAM2\\AccesoDatos\\src\\Tema1Ficheros\\Tema1Empleado\\AleatorioEmple.dat"); // Declara el fichero de acceso aleatorio.
         RandomAccessFile file = new RandomAccessFile(fichero, "r"); // r solo lee el fichero, w solo escribe el fichero rw ambas
         Scanner sc = new Scanner(System.in);
         
