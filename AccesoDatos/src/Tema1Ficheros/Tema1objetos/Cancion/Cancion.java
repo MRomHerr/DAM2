@@ -21,6 +21,15 @@ public class Cancion implements Serializable {
         this.artista = "";
         this.duracion = "";
         this.español = false;
+        /*
+        otra forma de introducir la cantidad de caracteres que soportan
+        this.id = id;
+        this.año = año;
+        this.titulo = titulo.length() <= 20 ? titulo : titulo.substring(0, 20);
+        this.artista = artista.length() <= 20 ? artista : artista.substring(0, 20);
+        this.duracion = duracion.length() <= 20 ? duracion : duracion.substring(0, 20);
+        this.español = español;
+         */
     }
 
     //metodos get
