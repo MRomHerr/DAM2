@@ -40,17 +40,45 @@ public class CancionMain {
         } while (opcion != 0);
     }
 
-    // Método para añadir una canción al archivo
+    // metodo para añadir una canción al archivo
     private static void añadirCancion(File fichero, Scanner sc) {
         try (ObjectOutputStream datos = getObjectOutputStream(fichero)) {
-            Cancion cancion = construirCancion(sc);
+            // Generar un ID automáticamente basado en el número de canciones actuales
+            int nuevoId = obtenerNuevoId(fichero);
+
+            // Construir la canción con el nuevo ID
+            Cancion cancion = construirCancion(sc, nuevoId);
+
+            // Escribir la canción en el fichero
             datos.writeObject(cancion);
         } catch (IOException e) {
             System.out.println("Error al manejar el archivo: " + e.getMessage());
         }
     }
 
-    // Método que devuelve un ObjectOutputStream que maneja el modo de agregar correctamente
+    // metodo que devuelve el próximo ID disponible
+    private static int obtenerNuevoId(File fichero) {
+        int ultimoId = 0;
+
+        if (fichero.exists()) {
+            try (ObjectInputStream dataIS = new ObjectInputStream(new FileInputStream(fichero))) {
+                // Leer todas las canciones y obtener el último ID
+                while (true) {
+                    Cancion c = (Cancion) dataIS.readObject();
+                    ultimoId = c.getId();  // Obtener el ID de la última canción leída
+                }
+            } catch (EOFException e) {
+                // Fin del archivo alcanzado, últimoId contiene el ID de la última canción
+            } catch (IOException | ClassNotFoundException e) {
+                System.out.println("Error al obtener el nuevo ID: " + e.getMessage());
+            }
+        }
+
+        // El próximo ID será el siguiente al último encontrado
+        return ultimoId + 1;
+    }
+
+    // metodo que devuelve un ObjectOutputStream que maneja el modo de agregar correctamente
     private static ObjectOutputStream getObjectOutputStream(File fichero) throws IOException {
         if (fichero.exists()) {
             // Si el archivo ya existe, usamos una clase personalizada para evitar escribir el encabezado
@@ -61,12 +89,10 @@ public class CancionMain {
         }
     }
 
-    // Método para construir una nueva canción solicitando datos al usuario
-    private static Cancion construirCancion(Scanner sc) {
+    // metodo para construir una nueva canción solicitando datos al usuario
+    private static Cancion construirCancion(Scanner sc, int nuevoId) {
         Cancion c = new Cancion();
-        System.out.print("Introduzca el identificador de la canción: ");
-        c.setId(sc.nextInt());
-        sc.nextLine(); // Limpiar el buffer
+        c.setId(nuevoId);  // Asignar el nuevo ID automáticamente
         System.out.print("Introduzca el año de publicación: ");
         c.setAño(sc.nextInt());
         sc.nextLine(); // Limpiar el buffer
@@ -81,7 +107,7 @@ public class CancionMain {
         return c;
     }
 
-    // Método para buscar canciones por el nombre del artista
+    // metodo para buscar canciones por el nombre del artista
     private static void buscarCancionPorArtista(Scanner sc) {
         File fichero = new File(FILE_PATH);
         boolean encontrada = false;
@@ -108,7 +134,7 @@ public class CancionMain {
         }
     }
 
-    // Método para mostrar todas las canciones del archivo
+    // metodo para mostrar todas las canciones del archivo
     private static void mostrarTodasLasCanciones() {
         File fichero = new File(FILE_PATH);
 

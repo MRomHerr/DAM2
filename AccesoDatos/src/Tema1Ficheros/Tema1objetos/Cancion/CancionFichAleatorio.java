@@ -1,84 +1,88 @@
 package Tema1Ficheros.Tema1objetos.Cancion;
 
 import java.io.*;
+import java.util.Scanner;
 
 public class CancionFichAleatorio {
 
-    private static final int CANCION_SIZE = 129;  // Cada canción ocupa 129 bytes (4 + 4 + 40 + 40 + 40 + 1)
-
-    // Ruta del fichero existente que lee
-    private static final String FILE_PATH = "C:\\Users\\aludam2\\IdeaProjects\\DAM2\\AccesoDatos\\src\\Tema1Ficheros\\Tema1objetos\\Cancion\\FichCancion.dat";
-    // Ruta del fichero aleatorio que voy a crear
-    private static final String FILE_PATH2 = "C:\\Users\\aludam2\\IdeaProjects\\DAM2\\AccesoDatos\\src\\Tema1Ficheros\\Tema1objetos\\Cancion\\FichAleaCancion.dat";
-
     public static void main(String[] args) {
-        // Ruta del archivo existente que se va a leer
-        File ficheroExistente = new File(FILE_PATH);
-
-        // Ruta del nuevo archivo que se va a crear
-        File nuevoFichero = new File(FILE_PATH2);
+        // Rutas de los ficheros binario y aleatorio
+        String ficheroBinario = "C:\\Users\\aludam2\\IdeaProjects\\DAM2\\AccesoDatos\\src\\Tema1Ficheros\\Tema1objetos\\Cancion\\FichCancion.dat";
+        // Fichero aleatorio de salida
+        String ficheroAleatorio = "C:\\Users\\aludam2\\IdeaProjects\\DAM2\\AccesoDatos\\src\\Tema1Ficheros\\Tema1objetos\\Cancion\\FichAleCancion.dat";
 
         try {
-            // Leer el archivo existente y crear el nuevo archivo
-            leerYCrearNuevoFichero(ficheroExistente, nuevoFichero);
+            leerFicheroBinarioYGuardarAleatorio(ficheroBinario, ficheroAleatorio);
+            System.out.println("Fichero aleatorio creado o actualizado correctamente.");
         } catch (IOException e) {
-            System.out.println("Error al manejar el archivo: " + e.getMessage());
+            System.err.println("Error al crear o actualizar el fichero aleatorio: " + e.getMessage());
         }
-    }
+    }//Fin main
 
-    // Metodo para leer el archivo existente y crear un nuevo archivo de acceso aleatorio
-    private static void leerYCrearNuevoFichero(File ficheroExistente, File nuevoFichero) throws IOException {
-        // Crear el nuevo archivo de acceso aleatorio para escritura y lectura
-        try (RandomAccessFile nuevoFile = new RandomAccessFile(nuevoFichero, "rw");
-             RandomAccessFile file = new RandomAccessFile(ficheroExistente, "r")) {
 
-            // Leer el archivo hasta llegar al final
-            while (file.getFilePointer() < file.length()) {
-                // Leer ID de la canción desde el archivo existente
-                int id = file.readInt();
+    // Metodo que lee el fichero binario y guarda en un fichero aleatorio
+    public static void leerFicheroBinarioYGuardarAleatorio(String ficheroBinario, String ficheroAleatorio) throws IOException {
+        File archivoBinario = new File(ficheroBinario);
+        File archivoAleatorio = new File(ficheroAleatorio);
 
-                // Leer Año desde el archivo existente
-                int año = file.readInt();
+        // Verificar si el fichero binario existe
+        if (!archivoBinario.exists()) {
+            System.err.println("Error: El fichero binario " + ficheroBinario + " no existe.");
+            return;
+        }
 
-                // Leer el título (20 caracteres) desde el archivo existente
-                String tituloCancion = leerCadena(file, 20);
+        // Si no existe, crear el fichero aleatorio
+        if (!archivoAleatorio.exists()) {
+            archivoAleatorio.createNewFile();
+            System.out.println("Fichero aleatorio creado: " + ficheroAleatorio);
+        }
 
-                // Leer el artista (20 caracteres) desde el archivo existente
-                String nombreArtista = leerCadena(file, 20);
+        try (ObjectInputStream entrada = new ObjectInputStream(new FileInputStream(archivoBinario));
+             RandomAccessFile archivoAleatorioRAF = new RandomAccessFile(archivoAleatorio, "rw")) {
 
-                // Leer la duración (20 caracteres) desde el archivo existente
-                String duracionCancion = leerCadena(file, 20);
+            while (true) {
+                try {
+                    // Leer el objeto canción desde el fichero binario
+                    Cancion cancion = (Cancion) entrada.readObject();
 
-                // Leer si es una canción en español desde el archivo existente
-                boolean español = file.readBoolean();
+                    // Moverse al final del fichero aleatorio
+                    archivoAleatorioRAF.seek(archivoAleatorioRAF.length());
 
-                // Escribir los datos en el nuevo archivo de acceso aleatorio
-                nuevoFile.writeInt(id); // Escribir ID en el nuevo archivo
-                nuevoFile.writeInt(año); // Escribir Año en el nuevo archivo
-                nuevoFile.writeChars(String.format("%-20s", tituloCancion)); // Escribir título en el nuevo archivo
-                nuevoFile.writeChars(String.format("%-20s", nombreArtista)); // Escribir artista en el nuevo archivo
-                nuevoFile.writeChars(String.format("%-20s", duracionCancion)); // Escribir duración en el nuevo archivo
-                nuevoFile.writeBoolean(español); // Escribir si es español en el nuevo archivo
+                    // Escribir la canción en el fichero aleatorio
+                    escribirCancion(archivoAleatorioRAF, cancion);
+
+                } catch (EOFException e) {
+                    // Fin del fichero binario
+                    System.out.println("Fin de lectura del fichero binario.");
+                    break;
+                } catch (ClassNotFoundException e) {
+                    System.err.println("Clase no encontrada al leer el fichero binario.");
+                    e.printStackTrace();
+                }
             }
-
-            System.out.println("Datos transferidos al nuevo archivo de acceso aleatorio.");
         }
-    }
-
-    // Metodo para leer una cadena de un archivo de acceso aleatorio
-    private static String leerCadena(RandomAccessFile file, int size) throws IOException {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < size; i++) {
-            sb.append(file.readChar());
-        }
-        return sb.toString().trim(); // Convertir a String y eliminar espacios
-    }
-}
+    }//Fin leerFicheroBinarioYGuardarAleatorio
 
 
-/*
-            %: Indica el inicio de un especificador de formato.
--: Este signo significa que el texto se alineará a la izquierda en el espacio que se le asigne. Sin este signo, el texto se alinearía a la derecha de forma predeterminada.
-20: Este número especifica el ancho mínimo del campo. En este caso, significa que se reservarán 20 caracteres para mostrar la cadena. Si la cadena es más corta que 20 caracteres, se completará con espacios en blanco a la derecha (si es alineación a la izquierda) o a la izquierda (si no se incluye el signo -).
-s: Indica que se está trabajando con una cadena (string)
-             */
+    // Metodo para escribir una canción en el fichero aleatorio con asignación de bytes
+    private static void escribirCancion(RandomAccessFile archivo, Cancion cancion) throws IOException {
+        // BYTES=  int ID (4 bytes) + int año (4 bytes) + String Titulo (50 * 2 = 100bytes) + String Artista (50 * 2 = 100bytes)
+        //          + String Duracion (10 * 2 = 20bytes) + boolean esEspañola (1byte) = 229 bytes.
+        archivo.writeInt(cancion.getId()); // ID de la canción
+        archivo.writeInt(cancion.getAño()); // Año de la canción
+        escribirCadena(archivo, cancion.getTitulo(), 50); // Título, ajustado a 50 caracteres
+        escribirCadena(archivo, cancion.getArtista(), 50); // Artista, ajustado a 50 caracteres
+        escribirCadena(archivo, cancion.getDuracion(), 10); // Duración, ajustado a 10 caracteres
+        archivo.writeBoolean(cancion.getEspañol()); // Si es española o no
+    }//Fin escribirCancion
+
+
+    // Metodo para escribir cadenas con longitud fija en el fichero aleatorio
+    private static void escribirCadena(RandomAccessFile archivo, String cadena, int longitud) throws IOException {
+        StringBuffer buffer = new StringBuffer(cadena);
+        buffer.setLength(longitud); // Ajustar el tamaño de la cadena
+        archivo.writeChars(buffer.toString()); // Escribir los caracteres en el archivo
+    }//Fin escribirCadena
+
+
+}//Fin class

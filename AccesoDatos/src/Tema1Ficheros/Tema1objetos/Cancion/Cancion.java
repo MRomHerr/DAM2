@@ -57,7 +57,7 @@ public class Cancion implements Serializable {
     }
 
 
-    public boolean isEspañol() {
+    public boolean getEspañol() {
         return español;
     }
 
