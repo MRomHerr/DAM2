@@ -36,11 +36,10 @@ public class CrearFichAleatorio {
     private static void escribirCancion(RandomAccessFile raf, Cancion cancion) throws IOException {
         raf.writeInt(cancion.getId());             // 4 bytes para el ID
         raf.writeInt(cancion.getAño());            // 4 bytes para el año
-        raf.writeChars(String.format("%-20s", cancion.getTitulo())); // Escribir título
-        raf.writeChars(String.format("%-20s", cancion.getArtista())); // Escribir artista
-        raf.writeChars(String.format("%-20s", cancion.getDuracion())); // Escribir duración
-        raf.writeBoolean(cancion.getEspañol());
-
+        escribirCadena(raf, cancion.getTitulo(), 20); // Escribir título
+        escribirCadena(raf, cancion.getArtista(), 20); // Escribir artista
+        escribirCadena(raf, cancion.getDuracion(), 20); // Escribir duración
+        raf.writeBoolean(cancion.getEspañol());    // 1 byte para booleano
     }
 
     // metodo para escribir una cadena en un tamaño fijo de caracteres
@@ -49,6 +48,7 @@ public class CrearFichAleatorio {
         sb.setLength(longitud); // Fijar la longitud de la cadena a la longitud requerida
         raf.writeChars(sb.toString());  // Escribir la cadena carácter por carácter (2 bytes por carácter)
     }
+
 
     // metodo que lee las canciones desde el fichero de objetos FichCancion.dat
     private static List<Cancion> obtenerCancionesDesdeFicheroObjetos() {
