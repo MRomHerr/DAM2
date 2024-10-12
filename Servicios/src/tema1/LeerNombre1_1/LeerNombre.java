@@ -6,14 +6,17 @@ de salida específico dependiendo de si se ha introducido el argumento correctam
  */
 
 public class LeerNombre {
+
     public static void main(String[] args) {
-        if (args.length != 1) {
-            System.out.println("Error: Debe ingresar un nombre como argumento.");
-            System.exit(-1); // Finalización incorrecta
+        if (args.length == 0) {
+            System.out.println("No se ha proporcionado ningún nombre.");
+            System.exit(-1);
         }
 
-        // Imprimir el nombre
-        System.out.println("El nombre introducido es: " + args[0]);
-        System.exit(1); // Finalización correcta
+        String nombre = args[0];
+        System.out.println(nombre);
+        System.exit(0);
+
     }
+
 }

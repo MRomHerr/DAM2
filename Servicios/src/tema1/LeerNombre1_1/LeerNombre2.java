@@ -1,6 +1,8 @@
 package tema1.LeerNombre1_1;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 /*
 Este segundo programa debe ejecutar LeerNombre.java como un proceso externo, y utilizar el
@@ -10,23 +12,31 @@ los argumentos correctamente o no, el proceso devolverá 1 o -1.
 
 
 public class LeerNombre2{
-    public static void main(String[] args) {
-        try {
-            // Ejecutar LeerNombre.java con o sin argumento desde la línea de comandos
-            ProcessBuilder pb = new ProcessBuilder("java", "LeerNombre", "Juan"); // Poner "Juan" como ejemplo de argumento
-            Process process = pb.start();
+    public static void main(String[] args) throws InterruptedException {
+            try {
+                File directorio = new File("C:\\Users\\marco\\IdeaProjects\\DAM2\\Servicios\\src\\tema1\\LeerNombre1_1\\LeerNombre.java");
 
-            // Esperar a que el proceso termine y obtener el valor de salida
-            int exitCode = process.waitFor();
+                ProcessBuilder pb = new ProcessBuilder("java","LeerNombre.java");
+                pb.directory(directorio);
 
-            // Comprobar el valor de salida
-            if (exitCode == 1) {
-                System.out.println("El programa finalizó correctamente con código: " + exitCode);
-            } else if (exitCode == -1) {
-                System.out.println("El programa no recibió argumentos correctamente. Código: " + exitCode);
+                Process p = pb.start();
+
+                int exitVal = p.waitFor();
+
+                System.out.println("Valor de salida: " + exitVal);
+
+                InputStream is = p.getInputStream();
+                int c;
+                while((c=is.read())!= -1) {
+                    System.out.print((char)c);
+                }
+                is.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
+
+
+
         }
+
     }
-}
