@@ -44,7 +44,6 @@ public class BuscarCanAleID {
     }
 
     private static Cancion leerCancion(RandomAccessFile raf) throws IOException {
-        // Leer los datos restantes de la canción
         int id = raf.readInt(); // Leer el ID
         int año = raf.readInt(); // Leer el año
         String titulo = leerCadena(raf, 20); // Leer el título
@@ -53,7 +52,7 @@ public class BuscarCanAleID {
         boolean español = raf.readBoolean(); // Leer si es en español
 
         // Crear y devolver la canción
-        return new Cancion(año, id, titulo, artista, duracion, español);
+        return new Cancion(año, id, titulo, artista, duracion, español); // id no se necesita aquí
     }
 
     private static String leerCadena(RandomAccessFile raf, int longitud) throws IOException {
