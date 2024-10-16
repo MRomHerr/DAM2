@@ -1,4 +1,4 @@
-package Tema1Ficheros.XmlaotroFormato.alumnos;
+package Tema1Ficheros.XmlotroFormato.alumnos;
 
 import javax.xml.transform.*;
 import javax.xml.transform.stream.*;
