@@ -6,9 +6,9 @@ import java.io.*;
 
 public class convertidor {
     public static void main(String[] args) {
-        String hojaEstilo = "C:\\Users\\aludam2\\IdeaProjects\\DAM2\\AccesoDatos\\src\\Tema1Ficheros\\XmlaotroFormato\\alumnosPlantilla.xsl"; // Ruta del archivo XSL
-        String datosAlumnos = "C:\\Users\\aludam2\\IdeaProjects\\DAM2\\AccesoDatos\\src\\Tema1Ficheros\\XmlaotroFormato\\alumnos.xml"; // Ruta del archivo XML
-        File pagHTML = new File("C:\\Users\\aludam2\\IdeaProjects\\DAM2\\AccesoDatos\\src\\Tema1Ficheros\\XmlaotroFormato\\mipagina.html"); // Crear archivo HTML
+        String hojaEstilo = "C:\\Users\\aludam2\\IdeaProjects\\DAM2\\AccesoDatos\\src\\Tema1Ficheros\\XmlaotroFormato\\alumnos\\alumnosPlantilla.xsl"; // Ruta del archivo XSL
+        String datosAlumnos = "C:\\Users\\aludam2\\IdeaProjects\\DAM2\\AccesoDatos\\src\\Tema1Ficheros\\XmlaotroFormato\\alumnos\\alumnos.xml"; // Ruta del archivo XML
+        File pagHTML = new File("C:\\Users\\aludam2\\IdeaProjects\\DAM2\\AccesoDatos\\src\\Tema1Ficheros\\XmlaotroFormato\\alumnos\\mipagina.html"); // Crear archivo HTML
 
         // Crear fichero HTML
         try (FileOutputStream os = new FileOutputStream(pagHTML)) {
