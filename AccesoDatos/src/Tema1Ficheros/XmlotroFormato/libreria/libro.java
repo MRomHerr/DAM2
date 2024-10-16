@@ -3,14 +3,14 @@ package Tema1Ficheros.XmlotroFormato.libreria;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlType(propOrder = {"autor", "nombre", "editorial", "isbn"})
-public class libro {
+public class Libro {
     private String nombre;
     private String autor;
     private String editorial;
     private String isbn;
 
     // Constructor con parámetros
-    public libro(String nombre, String autor, String editorial, String isbn) {
+    public Libro(String nombre, String autor, String editorial, String isbn) {
         super();
         this.nombre = nombre;
         this.autor = autor;
@@ -19,7 +19,7 @@ public class libro {
     }
 
     // Constructor sin parámetros
-    public libro() {}
+    public Libro() {}
 
     // Métodos getter
     public String getNombre() {
