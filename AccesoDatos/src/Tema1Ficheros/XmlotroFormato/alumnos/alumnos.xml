@@ -1,12 +1,17 @@
 <?xml version="1.0"?>
 <listadealumnos>
-    <alumnos>
+    <alumno>
         <nombre>Juan</nombre>
         <edad>19</edad>
-    </alumnos>
+    </alumno>
 
-    <alumnos>
+    <alumno>
         <nombre>Maria</nombre>
         <edad>20</edad>
-    </alumnos>
+    </alumno>
+
+    <alumno>
+        <nombre>Maria</nombre>
+        <edad>20</edad>
+    </alumno>
 </listadealumnos>

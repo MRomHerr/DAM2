@@ -1,4 +1,4 @@
-package Tema1Ficheros.XmlotroFormato.alumnos;
+package Tema1Ficheros.XmlotroFormato.canciones;
 
 import javax.xml.transform.*;
 import javax.xml.transform.stream.*;
@@ -6,9 +6,9 @@ import java.io.*;
 
 public class convertidor {
     public static void main(String[] args) {
-        String hojaEstilo = "C:\\Users\\aludam2\\IdeaProjects\\DAM2\\AccesoDatos\\src\\Tema1Ficheros\\XmlotroFormato\\alumnos\\alumnosPlantilla.xsl"; // Ruta del archivo XSL
-        String datosAlumnos = "C:\\Users\\aludam2\\IdeaProjects\\DAM2\\AccesoDatos\\src\\Tema1Ficheros\\XmlotroFormato\\alumnos\\alumnos.xml"; // Ruta del archivo XML
-        File pagHTML = new File("C:\\Users\\aludam2\\IdeaProjects\\DAM2\\AccesoDatos\\src\\Tema1Ficheros\\XmlotroFormato\\alumnos.html"); // Crear archivo HTML
+        String hojaEstilo = "C:\\Users\\aludam2\\IdeaProjects\\DAM2\\AccesoDatos\\src\\Tema1Ficheros\\XmlotroFormato\\canciones\\canciones.xsl"; // Ruta del archivo XSL
+        String datosAlumnos = "C:\\Users\\aludam2\\IdeaProjects\\DAM2\\AccesoDatos\\src\\Tema1Ficheros\\XmlotroFormato\\canciones\\Canciones.xml"; // Ruta del archivo XML
+        File pagHTML = new File("C:\\Users\\aludam2\\IdeaProjects\\DAM2\\AccesoDatos\\src\\Tema1Ficheros\\XmlotroFormato\\canciones.html"); // Crear archivo HTML
 
         // Crear fichero HTML
         try (FileOutputStream os = new FileOutputStream(pagHTML)) {
