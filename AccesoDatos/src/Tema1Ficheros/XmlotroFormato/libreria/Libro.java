@@ -1,6 +1,6 @@
 package Tema1Ficheros.XmlotroFormato.libreria;
 
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlType;
 
 @XmlType(propOrder = {"autor", "nombre", "editorial", "isbn"})
 public class Libro {
