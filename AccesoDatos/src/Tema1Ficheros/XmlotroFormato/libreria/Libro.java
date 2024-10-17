@@ -1,9 +1,11 @@
 package Tema1Ficheros.XmlotroFormato.libreria;
 
+import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlType;
 
-@XmlType(propOrder = {"autor", "nombre", "editorial", "isbn"})
+@XmlType(propOrder = {"autor", "nombre", "editorial", "isbn"})  // Especifica el orden de los elementos en el XML
 public class Libro {
+
     private String nombre;
     private String autor;
     private String editorial;
@@ -11,29 +13,32 @@ public class Libro {
 
     // Constructor con parámetros
     public Libro(String nombre, String autor, String editorial, String isbn) {
-        super();
         this.nombre = nombre;
         this.autor = autor;
         this.editorial = editorial;
         this.isbn = isbn;
     }
 
-    // Constructor sin parámetros
+    // Constructor sin parámetros (necesario para JAXB)
     public Libro() {}
 
     // Métodos getter
+    @XmlElement  // Indica que esta propiedad se debe incluir en el XML
     public String getNombre() {
         return nombre;
     }
 
+    @XmlElement  // Indica que esta propiedad se debe incluir en el XML
     public String getAutor() {
         return autor;
     }
 
+    @XmlElement  // Indica que esta propiedad se debe incluir en el XML
     public String getEditorial() {
         return editorial;
     }
 
+    @XmlElement  // Indica que esta propiedad se debe incluir en el XML
     public String getIsbn() {
         return isbn;
     }
