@@ -1,8 +1,9 @@
-package tema2.RA2;
+package tema2.RA2.Ejercicio6;
 
 public class EstadosHilo {
     public static void main(String[] args) {
-        Thread hilo = new Thread(new Runnable() {
+        // Crear el objeto Runnable
+        Runnable runnable = new Runnable() {
             @Override
             public void run() {
                 try {
@@ -25,18 +26,21 @@ public class EstadosHilo {
                     System.out.println("Hilo interrumpido.");
                 }
             }
-        });
+        };
 
         // Estado NEW
         System.out.println("Estado NEW: Hilo creado pero no iniciado.");
 
+        // Crear el hilo y pasarle el Runnable
+        Thread hilo = new Thread(runnable);
         hilo.start();
 
         try {
             Thread.sleep(2000); // Dar tiempo para que el hilo entre en WAITING
 
-            synchronized (hilo) {
-                hilo.notify(); // Notificar al hilo para salir de WAITING
+            // Notificar sobre el objeto runnable
+            synchronized (runnable) {
+                runnable.notify(); // Notificar al hilo para salir de WAITING
             }
 
             hilo.join(); // Esperar a que el hilo termine

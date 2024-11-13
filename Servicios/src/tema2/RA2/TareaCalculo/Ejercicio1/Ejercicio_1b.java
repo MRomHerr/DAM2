@@ -1,4 +1,4 @@
-package tema2.RA2.TareaCalculo;
+package tema2.RA2.TareaCalculo.Ejercicio1;
 
 public class Ejercicio_1b {
     public static void main(String[] args) {

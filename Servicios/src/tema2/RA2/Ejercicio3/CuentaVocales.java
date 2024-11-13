@@ -1,4 +1,4 @@
-package tema2.RA2;
+package tema2.RA2.Ejercicio3;
 
 public class CuentaVocales {
     private static int totalVocales = 0;
