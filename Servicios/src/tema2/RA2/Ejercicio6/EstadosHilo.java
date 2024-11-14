@@ -1,14 +1,15 @@
 package tema2.RA2.Ejercicio6;
 
 /**
- * clase que muestra el ciclo de vida de un hilo utilizando los diferentes estados en java.
- * el hilo pasa por los estados: NEW, RUNNABLE, TIMED_WAITING, WAITING y TERMINATED.
+ * Clase que muestra el ciclo de vida de un hilo utilizando los diferentes estados en Java.
+ * El hilo pasa por los estados: NEW, RUNNABLE, TIMED_WAITING, WAITING y TERMINATED.
  *
  * @author Marcos Romero Herrero
  * @version 1.0
  * @date 10/11/2024
  */
 public class EstadosHilo {
+
     /**
      * metodo principal que crea y ejecuta un hilo, mostrando su ciclo de vida
      * a través de los diferentes estados.
@@ -16,24 +17,27 @@ public class EstadosHilo {
      * @param args los argumentos del programa (no utilizados)
      */
     public static void main(String[] args) {
-        //crear el objeto runnable
+        // Estado NEW
+        System.out.println("estado NEW: hilo creado pero no iniciado.");
+
+        // Crear el objeto Runnable
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
                 try {
-                    //estado RUNNABLE
-                    System.out.println("estado runnable: el hilo esta en ejecucion.");
+                    // Estado RUNNABLE
+                    System.out.println("estado RUNNABLE: el hilo está en ejecución.");
 
-                    //estado TIMED_WAITING (sleep)
-                    System.out.println("entrando en estado timed_waiting (sleep)...");
+                    // Estado TIMED_WAITING (sleep)
+                    System.out.println("entrando en estado TIMED_WAITING (sleep)...");
                     Thread.sleep(1000);
-                    System.out.println("saliendo de estado timed_waiting (sleep).");
+                    System.out.println("saliendo de estado TIMED_WAITING (sleep).");
 
-                    //estado WAITING
+                    // Estado WAITING
                     synchronized (this) {
-                        System.out.println("entrando en estado waiting...");
-                        wait();
-                        System.out.println("saliendo de estado waiting.");
+                        System.out.println("entrando en estado WAITING...");
+                        wait();  // El hilo espera en este punto
+                        System.out.println("saliendo de estado WAITING.");
                     }
 
                 } catch (InterruptedException e) {
@@ -42,25 +46,30 @@ public class EstadosHilo {
             }
         };
 
-        //estado NEW
-        System.out.println("estado new: hilo creado pero no iniciado.");
-
-        //crear el hilo y pasarle el runnable
+        // Crear el hilo y pasarle el runnable
         Thread hilo = new Thread(runnable);
-        hilo.start();
+        hilo.start(); // El hilo pasa a estado RUNNABLE
 
         try {
-            Thread.sleep(2000); // dar tiempo para que el hilo entre en WAITING
+            Thread.sleep(500); // Pequeña pausa para asegurar que el hilo pase a RUNNABLE
 
-            //notificar sobre el objeto runnable
+            // Estado RUNNABLE: el hilo comienza a ejecutarse
+            System.out.println("El hilo ha pasado al estado RUNNABLE.");
+
+            // Estado WAITING: el hilo está esperando
+            Thread.sleep(2000); // Dar tiempo para que el hilo entre en WAITING
+
+            // Notificar sobre el objeto runnable
             synchronized (runnable) {
-                runnable.notify(); // notificar al hilo para salir de WAITING
+                System.out.println("notificando para salir del estado WAITING.");
+                runnable.notify(); // Despierta al hilo
             }
 
-            hilo.join(); //esperar a que el hilo termine
+            hilo.join(); // Espera a que el hilo termine
 
-            //estado TERMINATED
-            System.out.println("estado terminated: el hilo ha finalizado su ejecucion.");
+            // Estado TERMINATED
+            System.out.println("estado TERMINATED: el hilo ha finalizado su ejecución.");
+
         } catch (InterruptedException e) {
             System.out.println("hilo principal interrumpido.");
         }

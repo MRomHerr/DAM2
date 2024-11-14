@@ -83,16 +83,16 @@ public class Lenguaje implements Runnable {
      * @param args los argumentos del programa (no utilizados)
      */
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
         // preguntar al usuario cuantas lineas debe tener el archivo
         System.out.print("¿cuantas lineas quieres generar en el archivo? ");
-        int numLineas = scanner.nextInt();
+        int numLineas = sc.nextInt();
 
         // preguntar la ruta del archivo donde se guardaran las palabras
-        scanner.nextLine();  // limpiar el buffer
+        sc.nextLine();  // limpiar el buffer
         System.out.print("introduce la ruta completa del archivo donde se guardaran las palabras: ");
-        String nombreArchivo = scanner.nextLine();
+        String nombreArchivo = sc.nextLine();
 
         // crear la instancia de la clase Lenguaje con los parametros proporcionados
         Lenguaje lenguaje = new Lenguaje(numLineas, nombreArchivo);
