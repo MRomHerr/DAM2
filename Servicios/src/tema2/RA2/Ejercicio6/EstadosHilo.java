@@ -1,8 +1,9 @@
-package tema2.RA2.Ejercicio6;
+package tema2.RA2.Combinado;
 
 /**
- * Clase que muestra el ciclo de vida de un hilo utilizando los diferentes estados en Java.
- * El hilo pasa por los estados: NEW, RUNNABLE, TIMED_WAITING, WAITING y TERMINATED.
+ * clase que demuestra los principales estados de un hilo en java usando los métodos wait(), notify(), sleep() y join().
+ * el hilo pasa por los estados: new, runnable, timed_waiting, waiting, blocked y terminated.
+ * muestra el cambio de estado en tiempo real y cómo interactúan los hilos.
  *
  * @author Marcos Romero Herrero
  * @version 1.0
@@ -11,64 +12,73 @@ package tema2.RA2.Ejercicio6;
 public class EstadosHilo {
 
     /**
-     * metodo principal que crea y ejecuta un hilo, mostrando su ciclo de vida
-     * a través de los diferentes estados.
-     *
+     * metodo principal que crea y ejecuta un hilo, mostrando su ciclo de vida a través de los diferentes estados.
      * @param args los argumentos del programa (no utilizados)
      */
     public static void main(String[] args) {
-        // Estado NEW
-        System.out.println("estado NEW: hilo creado pero no iniciado.");
+        //objeto de bloqueo compartido para sincronización
+        final Object bloqueo = new Object();
 
-        // Crear el objeto Runnable
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
+        //hilo bloqueador que simula el estado blocked en el hilo principal
+        Thread hiloBloqueador = new Thread(() -> {
+            synchronized (bloqueo) {
+                System.out.println("hilo bloqueador: adquirido bloqueo y entrando en estado timed_waiting...");
                 try {
-                    // Estado RUNNABLE
-                    System.out.println("estado RUNNABLE: el hilo está en ejecución.");
-
-                    // Estado TIMED_WAITING (sleep)
-                    System.out.println("entrando en estado TIMED_WAITING (sleep)...");
-                    Thread.sleep(1000);
-                    System.out.println("saliendo de estado TIMED_WAITING (sleep).");
-
-                    // Estado WAITING
-                    synchronized (this) {
-                        System.out.println("entrando en estado WAITING...");
-                        wait();  // El hilo espera en este punto
-                        System.out.println("saliendo de estado WAITING.");
-                    }
-
+                    Thread.sleep(2000);  //mantiene el bloqueo por 2 segundos
                 } catch (InterruptedException e) {
-                    System.out.println("hilo interrumpido.");
+                    System.out.println("hilo bloqueador interrumpido.");
                 }
+                System.out.println("hilo bloqueador: liberando bloqueo y terminando.");
             }
-        };
+        });
 
-        // Crear el hilo y pasarle el runnable
-        Thread hilo = new Thread(runnable);
-        hilo.start(); // El hilo pasa a estado RUNNABLE
+        //hilo principal que muestra los estados runnable, waiting y blocked
+        Thread hiloPrincipal = new Thread(() -> {
+            try {
+                System.out.println("estado runnable: el hilo principal está en ejecución.");
+
+                System.out.println("entrando en estado timed_waiting (sleep)...");
+                Thread.sleep(1000);  //simula trabajo en ejecución
+                System.out.println("saliendo de estado timed_waiting (sleep).");
+
+                synchronized (bloqueo) {
+                    System.out.println("intentando entrar en estado waiting...");
+                    bloqueo.wait();  //el hilo principal entra en estado waiting
+                    System.out.println("saliendo de estado waiting.");
+                }
+
+                System.out.println("intentando adquirir el bloqueo...");
+                synchronized (bloqueo) {
+                    System.out.println("hilo principal: adquirido bloqueo y en ejecución.");
+                }
+            } catch (InterruptedException e) {
+                System.out.println("hilo principal interrumpido.");
+            }
+        });
+
+        //estado new
+        System.out.println("estado new: hilo principal creado pero no iniciado.");
+
+        hiloPrincipal.start(); //el hilo principal pasa a estado runnable
+        hiloBloqueador.start(); //inicia el hilo bloqueador y mantiene el bloqueo temporalmente
 
         try {
-            Thread.sleep(500); // Pequeña pausa para asegurar que el hilo pase a RUNNABLE
+            Thread.sleep(500); //pausa para asegurar que el hilo principal entre en runnable
 
-            // Estado RUNNABLE: el hilo comienza a ejecutarse
-            System.out.println("El hilo ha pasado al estado RUNNABLE.");
+            System.out.println("estado runnable: el hilo principal está en ejecución.");
 
-            // Estado WAITING: el hilo está esperando
-            Thread.sleep(2000); // Dar tiempo para que el hilo entre en WAITING
+            Thread.sleep(2000); //pausa para permitir que el hilo principal entre en waiting
 
-            // Notificar sobre el objeto runnable
-            synchronized (runnable) {
-                System.out.println("notificando para salir del estado WAITING.");
-                runnable.notify(); // Despierta al hilo
+            //notificación para liberar al hilo principal del estado waiting
+            synchronized (bloqueo) {
+                System.out.println("notificando para que el hilo principal salga del estado waiting.");
+                bloqueo.notify();
             }
 
-            hilo.join(); // Espera a que el hilo termine
+            hiloPrincipal.join(); //espera a que el hilo principal termine
 
-            // Estado TERMINATED
-            System.out.println("estado TERMINATED: el hilo ha finalizado su ejecución.");
+            //estado terminated
+            System.out.println("estado terminated: el hilo principal ha finalizado su ejecución.");
 
         } catch (InterruptedException e) {
             System.out.println("hilo principal interrumpido.");
