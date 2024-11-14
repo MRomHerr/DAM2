@@ -13,9 +13,10 @@ import java.util.Random;
  * @date 8/11/2024
  */
 public class TareaCalculo_a extends Thread {
-    private int suma = 0;  // variable que guarda la suma de los numeros generados
-    private Random random = new Random();  // objeto para generar numeros aleatorios
-    private List<Integer> numerosGenerados = new ArrayList<>();  // lista para almacenar los numeros generados
+    private int suma = 0;  //variable que guarda la suma de los numeros generados
+    private Random random = new Random();  //objeto para generar numeros aleatorios
+    private List<Integer> numerosGenerados = new ArrayList<>();  //lista para almacenar los numeros generados
+    private String nombre;  //nombre del hilo
 
     /**
      * constructor que inicializa el nombre del hilo.
@@ -23,7 +24,7 @@ public class TareaCalculo_a extends Thread {
      * @param nombre el nombre del hilo
      */
     public TareaCalculo_a (String nombre) {
-        super(nombre);
+        this.nombre = nombre;
     }
 
     /**
@@ -36,7 +37,7 @@ public class TareaCalculo_a extends Thread {
             int n = random.nextInt(901) + 100; //genera un numero aleatorio entre 100 y 1000
             suma += n;
             numerosGenerados.add(n);
-            System.out.println(getName() + ": numero generado = " + numerosGenerados + ", suma acumulada = " + suma);
+            System.out.println(nombre + ": numero generado = " + numerosGenerados + ", suma acumulada = " + suma);
             try {
                 Thread.sleep(10000); //espera 10 segundos antes de generar el siguiente numero
             } catch (InterruptedException e) {

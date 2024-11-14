@@ -18,8 +18,8 @@ import java.util.concurrent.Future;
 public class SincronizacionSubprocesos {
 
     // rutas de los archivos
-    static String archivo1 = "C:\\Users\\marco\\IdeaProjects\\DAM2\\Servicios\\src\\tema1\\RA1\\archivo1.txt";
-    static String archivo2 = "C:\\Users\\marco\\IdeaProjects\\DAM2\\Servicios\\src\\tema1\\RA1\\archivo2.txt";
+    static String archivo1 = "C:\\Users\\aludam2\\IdeaProjects\\DAM2\\Servicios\\src\\tema1\\RA1\\archivo1.txt";
+    static String archivo2 = "C:\\Users\\aludam2\\IdeaProjects\\DAM2\\Servicios\\src\\tema1\\RA1\\archivo2.txt";
 
     /**
      * metodo para contar lineas en un archivo usando powershell

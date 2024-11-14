@@ -41,7 +41,7 @@ public class TareaCalculo_c implements Runnable {
             suma += n;
             numerosGenerados.add(n);
             System.out.println(nombre + ": numero generado = " + numerosGenerados + ", suma acumulada = " + suma);
-            if (suma >= 1000000) {  //si la suma alcanza 1,000,000, detiene el hilo
+            if (suma >= 1000) {  //si la suma alcanza 1,000,000, detiene el hilo
                 detener();
             }
             try {
@@ -50,7 +50,7 @@ public class TareaCalculo_c implements Runnable {
                 e.printStackTrace(); //captura la excepcion si el hilo es interrumpido
             }
         }
-        System.out.println(nombre + ": hilo detenido. suma final = " + suma); //mensaje final cuando el hilo se detiene
+        System.out.println("el hilo "+nombre+ " alcanzó el millón"); //mensaje final cuando el hilo se detiene
     }
 
     /**

@@ -69,7 +69,7 @@ public class ComprimirArchivos {
      */
     public static void main(String[] args) {
         // ruta base donde se crearan los archivos
-        String ruta = "C:\\Users\\marco\\IdeaProjects\\DAM2\\Servicios\\src\\tema1\\RA1\\";
+        String ruta = "C:\\Users\\aludam2\\IdeaProjects\\DAM2\\Servicios\\src\\tema1\\RA1\\";
         // asegurarse de que rutaBase termine con un separador
         if (!ruta.endsWith(File.separator)) {
             ruta += File.separator;
