@@ -32,7 +32,7 @@ public class HiloPrioridades extends Thread {
     public void run() {
         System.out.println("Hilo iniciado: " + getName() + " con prioridad " + getPriority());
 
-        // bucle infinito para verificar la prioridad y ejecutar el método correspondiente
+        // bucle infinito para verificar la prioridad y ejecutar el metodo correspondiente
         while (true) {
             if (getPriority() == 1) {
                 tarea1();
