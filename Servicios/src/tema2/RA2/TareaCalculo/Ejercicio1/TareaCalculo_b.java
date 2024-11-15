@@ -25,7 +25,7 @@ public class TareaCalculo_b implements Runnable {
      */
     public TareaCalculo_b (String nombre) {
         this.nombre = nombre;
-    }
+    }//fin TareaCalculo_b
 
     /**
      * metodo que ejecuta el hilo, genera numeros aleatorios y calcula la suma
@@ -44,5 +44,5 @@ public class TareaCalculo_b implements Runnable {
                 e.printStackTrace(); //captura la excepcion si el hilo es interrumpido
             }
         }
-    }
-}
+    }//fin run
+}//fin clase

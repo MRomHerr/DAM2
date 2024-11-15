@@ -83,5 +83,5 @@ public class EstadosHilo {
         } catch (InterruptedException e) {
             System.out.println("hilo principal interrumpido.");
         }
-    }
-}
+    }//fin main
+}//fin clase

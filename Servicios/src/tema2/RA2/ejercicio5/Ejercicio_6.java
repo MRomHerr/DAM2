@@ -19,5 +19,5 @@ public class Ejercicio_6 {
         hilo1.start();
         hilo2.start();
         hilo3.start();
-    }
-}
+    }//fin main
+}//fin clase

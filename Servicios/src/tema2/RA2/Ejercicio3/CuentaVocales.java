@@ -20,13 +20,13 @@ public class CuentaVocales {
      */
     public CuentaVocales(String texto) {
         this.texto = texto;
-    }
+    }//fin constructor CuentaVocales
 
     /**
      * clase que implementa la interfaz runnable para contar las vocales
      * de un conjunto especificado en el texto.
      */
-    private class ContadorVocal implements Runnable {
+    private class Contador implements Runnable {
         private final String conjuntoVocales; // conjunto de vocales a contar
 
         /**
@@ -34,7 +34,7 @@ public class CuentaVocales {
          *
          * @param conjuntoVocales el conjunto de vocales que se contaran
          */
-        public ContadorVocal(String conjuntoVocales) {
+        public Contador(String conjuntoVocales) {
             this.conjuntoVocales = conjuntoVocales;
         }
 
@@ -57,8 +57,8 @@ public class CuentaVocales {
             }
             //imprimir el conteo de vocales por conjunto
             System.out.println("hilo para las vocales '" + conjuntoVocales + "' conto " + count + " vocales.");
-        }
-    }
+        }//fin metodo run
+    }//fin Contador
 
     /**
      * metodo que crea y ejecuta los hilos para contar las vocales en el texto.
@@ -69,7 +69,7 @@ public class CuentaVocales {
 
         //crear y arrancar los hilos para contar las vocales
         for (int i = 0; i < 5; i++) {
-            hilos[i] = new Thread(new ContadorVocal(vocales[i])); // crear el hilo para cada conjunto de vocales
+            hilos[i] = new Thread(new Contador(vocales[i])); // crear el hilo para cada conjunto de vocales
             hilos[i].start(); // arrancar el hilo
         }
 
@@ -84,7 +84,7 @@ public class CuentaVocales {
 
         //imprimir el total de vocales contadas
         System.out.println("total de vocales: " + totalVocales); // mostrar el total
-    }
+    }// fin metodo contarVocales
 
     /**
      * metodo principal donde se define el texto y se inicia el conteo de vocales.
@@ -95,5 +95,5 @@ public class CuentaVocales {
         String texto = "este es un texto de ejemplo para contar vocales utilizando multiples hilos, incluyendo tildes y mayusculas."; // texto de ejemplo
         CuentaVocales contador = new CuentaVocales(texto); //crear instancia de CuentaVocales
         contador.contarVocales(); //llamar al metodo para contar las vocales
-    }
-}
+    }//fin main
+}//fin clase

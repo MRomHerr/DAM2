@@ -23,5 +23,5 @@ public class Ejercicio_1c {
             Thread hilo = new Thread(tarea);
             hilo.start();
         }
-    }
-}
+    }//fin main
+}//fin clase

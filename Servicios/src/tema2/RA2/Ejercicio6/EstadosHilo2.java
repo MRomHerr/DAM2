@@ -67,5 +67,5 @@ public class EstadosHilo2 {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-    }
-}
+    }//fin main
+}//fin clase

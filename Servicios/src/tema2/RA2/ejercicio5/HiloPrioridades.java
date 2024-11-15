@@ -22,7 +22,7 @@ public class HiloPrioridades extends Thread {
     public HiloPrioridades(String nombre, int prioridad) {
         setName(nombre);
         setPriority(prioridad);
-    }
+    }//fin HiloPrioridades
 
     /**
      *metodo principal del hilo que muestra un mensaje al iniciar y, en un bucle,
@@ -48,8 +48,8 @@ public class HiloPrioridades extends Thread {
             } catch (InterruptedException e) {
                 System.out.println("Hilo interrumpido: " + getName());
             }
-        }
-    }
+        }//fin while
+    }//fin run
 
     //metodo que se ejecuta si la prioridad del hilo es 1 (tarea lenta).
     private void tarea1() {
@@ -65,4 +65,4 @@ public class HiloPrioridades extends Thread {
     private void tarea5() {
         System.out.println(getName() + " (prioridad " + getPriority() + "): tarea rápida");
     }
-}
+}//fin clase

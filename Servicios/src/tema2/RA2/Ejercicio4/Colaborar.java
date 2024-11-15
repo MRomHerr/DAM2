@@ -40,5 +40,5 @@ public class Colaborar {
 
         //informar cuando todos los hilos hayan terminado
         System.out.println("todos los hilos han terminado. el archivo " + archivo + " ha sido generado."); // Mensaje final indicando que todos los hilos han terminado
-    }
-}
+    }//fin main
+}//fin clase

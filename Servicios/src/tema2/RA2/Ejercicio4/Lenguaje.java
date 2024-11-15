@@ -31,7 +31,7 @@ public class Lenguaje implements Runnable {
     public Lenguaje(int numLineas, String nombreArchivo) {
         this.numLineas = numLineas;
         this.nombreArchivo = nombreArchivo;
-    }
+    }// fin metodo Lenguaje
 
     /**
      * metodo privado que genera una palabra aleatoria de longitud fija.
@@ -44,7 +44,7 @@ public class Lenguaje implements Runnable {
             palabra.append(letras.charAt(random.nextInt(letras.length()))); // agrega una letra aleatoria
         }
         return palabra.toString(); // retorna la palabra generada
-    }
+    }//fin metodo generarPalabra
 
     /**
      * metodo que se ejecuta al correr el hilo, crea el archivo si no existe
@@ -74,7 +74,7 @@ public class Lenguaje implements Runnable {
         } catch (IOException e) {
             System.err.println("error al escribir en el archivo: " + e.getMessage()); // mensaje de error si ocurre una excepcion
         }
-    }
+    }//fin metodo run
 
     /**
      * metodo principal donde se solicita al usuario el numero de lineas
@@ -99,5 +99,5 @@ public class Lenguaje implements Runnable {
 
         // crear y ejecutar el hilo que realiza la tarea
         new Thread(lenguaje).start();
-    }
-}
+    }//fin main
+}//fin clase

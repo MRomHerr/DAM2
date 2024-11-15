@@ -19,5 +19,5 @@ public class Ejercicio_1 {
             //crear y arrancar un nuevo hilo con la tarea TareaCalculo_a
             new TareaCalculo_a("Hilo-" + i).start();
         }
-    }
-}
+    }//fin main
+}//fin clase

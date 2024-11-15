@@ -27,7 +27,7 @@ public class TareaCalculo_c implements Runnable {
      */
     public TareaCalculo_c (String nombre) {
         this.nombre = nombre;
-    }
+    }//fin TareaCalculo_c
 
     /**
      * metodo que ejecuta el hilo, genera numeros aleatorios y calcula la suma
@@ -51,12 +51,12 @@ public class TareaCalculo_c implements Runnable {
             }
         }
         System.out.println("el hilo "+nombre+ " alcanzó el millón"); //mensaje final cuando el hilo se detiene
-    }
+    }//fin run
 
     /**
      * metodo para detener la ejecucion del hilo.
      */
     public void detener() {
         ejecutar = false;
-    }
-}
+    }//fin detener
+}//fin clase
